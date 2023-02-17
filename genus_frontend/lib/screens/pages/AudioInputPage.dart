@@ -74,7 +74,6 @@ class _AudioInputPageState extends State<AudioInputPage> {
     var resData = json.decode(responses.body) as String;
     print(res.statusCode);
 
-
     predicted = resData;
     setState(() {
       _audioFile = null;
@@ -104,7 +103,8 @@ class _AudioInputPageState extends State<AudioInputPage> {
                   child: predicted == null
                       ? Column(
                           children: [
-                            const Text("Audio Selected:",
+                            SizedBox(height: screenHeight * 0.4),
+                            Text("Audio Selected:",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 24.0,
@@ -125,8 +125,10 @@ class _AudioInputPageState extends State<AudioInputPage> {
                             CoolButton(
                                 label: "predict",
                                 onPressed: () {
-                                  setState(() {});
                                   predict(_audioFile);
+                                  setState(() {
+                                    // _audioFile = null;
+                                  });
                                 },
                                 icon: Icons.radar),
                             SizedBox(height: 20.0),
@@ -139,7 +141,30 @@ class _AudioInputPageState extends State<AudioInputPage> {
                               width: screenWidth * 1,
                             ),
                             CustomeCard(text: predicted.toString()),
-                            _audioFile != null ? Text("$_audioFile") : Text("hhhhh")
+                            SizedBox(height: screenHeight * 0.1),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CoolButton(
+                                    label: "Try again",
+                                    onPressed: () {
+                                      predict(_audioFile);
+                                      setState(() {});
+                                    },
+                                    icon: Icons.change_circle),
+                                SizedBox(width: screenWidth * 0.03),
+                                CoolButton(
+                                    label: "Upload audio",
+                                    onPressed: () {
+                                      _audioFile = null;
+                                      _pickAudioFile();
+                                      setState(() {
+                                        predicted = null;
+                                      });
+                                    },
+                                    icon: Icons.file_upload)
+                              ],
+                            )
                           ],
                         ),
                 )
@@ -191,8 +216,9 @@ class CoolButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
+        alignment: Alignment.center,
         height: screenHeight * 0.09,
-        width: screenWidth * 0.5,
+        width: screenWidth * 0.4,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
