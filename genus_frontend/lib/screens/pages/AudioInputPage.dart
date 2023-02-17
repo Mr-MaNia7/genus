@@ -71,11 +71,13 @@ class _AudioInputPageState extends State<AudioInputPage> {
     var req = http.MultipartRequest('GET', getUrl);
     var res = await req.send();
     var responses = await http.Response.fromStream(res);
-    var resData = json.decode(responses.body)['data'];
+    var resData = json.decode(responses.body) as String;
     print(res.statusCode);
 
+
+    predicted = resData;
     setState(() {
-      predicted = resData;
+      _audioFile = null;
     });
     // return resData;
   }
@@ -131,7 +133,14 @@ class _AudioInputPageState extends State<AudioInputPage> {
                           ],
                         )
                       : Column(
-                          children: [Text(predicted.toString())],
+                          children: [
+                            SizedBox(height: screenHeight * 0.3),
+                            SizedBox(
+                              width: screenWidth * 1,
+                            ),
+                            CustomeCard(text: predicted.toString()),
+                            _audioFile != null ? Text("$_audioFile") : Text("hhhhh")
+                          ],
                         ),
                 )
               : Column(
@@ -219,6 +228,51 @@ class CoolButton extends StatelessWidget {
             ),
           ),
         ]),
+      ),
+    );
+  }
+}
+
+class CustomeCard extends StatelessWidget {
+  final String text;
+
+  const CustomeCard({required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 4.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      child: Container(
+        padding: EdgeInsets.all(16.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12.0),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Colors.grey.shade800,
+              Colors.grey.shade900,
+            ],
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black38,
+              blurRadius: 15.0,
+              offset: Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+            fontSize: 20.0,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
     );
   }

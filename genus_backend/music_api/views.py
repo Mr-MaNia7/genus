@@ -7,7 +7,7 @@ import os
 
 @api_view(["GET"])
 def trial(request):
-    return Response("Bitch")
+    return Response("Finally Here")
     
 @api_view(["POST"])
 def add_song(request):
@@ -20,24 +20,17 @@ def add_song(request):
         creation_date = data["creation_date"]                   
     )
     serializer = MusicSerializer(new_song,many=False)
-    print(serializer)
     return Response(serializer.data)
 
 @api_view(["GET"])
 def predict(request):
-    print('uuuuuuuuuuuuuuuuuuuuuuuuuuuuuunnnnnnuuuuuuuuuuuuuuuuuuuuuuuu')
     songs = Music.objects.order_by('-creation_date')
     song_path = songs[0].song
     song_path = os.path.join('media/',str(song_path))
-    print(song_path)
     print("-----------------------------------------------------------")
     cnn = Cnn()
     music = cnn.make_prediction(song_path)
-    # number = cnn.re_shape(image).reshape(784)
-    print("ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo")
-    # predicted = cnn.predict_number(music)
     return Response(f'{music}')
-    # return Response("bitvh")
 
 
 
