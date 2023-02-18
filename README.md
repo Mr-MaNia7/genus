@@ -6,9 +6,13 @@ Music classification is a music information retrieval (MIR) task whose objective
 
 The model trained will be used as a Single-label classification, meaning it will only label music as belonging to one of the four well known Ethiopian music genres (ቅኝቶች) namely ambasel (አምባሰል), bati (ባቲ), anchi hoye (አንቺ ሆዬ) or tizita (ትዝታ).
 
-
 # The Machine Learning
-We have used ___ algorithm to train the model in order to classify/cluster music genres.
+We have used the following algorithms to train the model in order to classify our music genres.
+- KNN(K nearest neighbours)
+- Random Forest
+- xGBoost
+- Decision Trees
+- CNN (found more accurate and used in the app)
 
 # Frameworks
 * Django for backend
