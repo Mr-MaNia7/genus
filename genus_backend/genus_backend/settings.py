@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-neo@rs-!chi7b)d)40k2#p&&klj5jc8*#ykw8*fi9#f91qo1l$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app','*',"192.168.43.250","0.0.0.0"]
+ALLOWED_HOSTS = ['.vercel.app','*',"192.168.43.250","0.0.0.0", "192.168.180.170","192.168.43.57"]
 
 
 # Application definition
@@ -164,6 +164,8 @@ MEDIA_URL = 'media/'
 MODELS = os.path.join(BASE_DIR, 'music_api/models')
 
 MEDIA_URL = '/media/'
+
+MODELS = os.path.join(BASE_DIR, 'Models')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type
